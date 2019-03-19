@@ -1,0 +1,22 @@
+<div class="page-header"><h3>Customer Entry</h3></div>
+<hr/>
+<!--
+  <div *ngIf="resultMessage" class="alert alert-success">
+    {{resultMessage}}
+  </div>
+-->
+
+<form #customerForm="ngForm" (ngSubmit)="save(customerForm.value);customerForm.reset();">
+  <div class="form-group">
+	<input type="hidden" (ngModel)="customer.id" name="id">
+    <input class="form-control" id ="customerName" type="text" placeholder="Customer Name" required (ngModel)="customer.customer_name" name="customer_name">
+  </div>
+  
+  <div class="row">
+  <div class="col-md-10">
+  </div>
+  <div class="col-md-2">
+   <button class="btn btn-primary" type="submit" [disabled]="!customerForm.form.valid">Save</button>
+  </div>
+  </div>
+</form>

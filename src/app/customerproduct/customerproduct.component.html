@@ -1,0 +1,168 @@
+	
+<div class="page-header text-center"><h3>POC Akkermans</h3></div>
+<hr/>
+
+<div class="row"> 
+ <div class="col-md-4"> 
+  <!--
+	 <select placeholder="Product" (ngModel)="customerproduct.productid" name="productid" required class="form-control">
+	   <option value="0">-select product-</option>
+		<option *ngFor="let p of products" [value]="p.id">
+		  {{p.name_product}}
+		</option>
+	  </select>
+  -->
+    <select placeholder="Product" [(ngModel)]="customerproductp" name="productid" class="form-control">
+	  <option disabled hidden [value]="selectUndefinedOptionValue">-- product --</option>
+      <option *ngFor="let p of products" [ngValue]="p.id">{{p.name_product}}</option>
+    </select>
+  </div>
+  
+ <div class="col-md-2"></div>
+  <div class="col-md-2"> 
+	<!--<a class="btn btn-block btn-primary" href="#" (ngClick)="getProductPopUp()">New</a>-->
+	<button class="btn btn-lg btn-outline-primary" (click)="open(contentProduct)">New</button>
+ </div>
+ 
+ <div class="col-md-2"></div>
+  <div class="col-md-2"> 
+	<a class="btn btn-lg btn-outline-danger" (click)="deleteProduct(customerproductp)">X</a>
+ </div>
+</div>
+
+<hr/>
+
+<div class="row">
+ <div class="col-md-4"> 
+ <!--
+	  <select placeholder="Customer" (ngModel)="customerproduct.customerid" name="customerid" required class="form-control">
+	   <option value="0">-select customer-</option>
+		<option *ngFor="let c of customers" [value]="c.id">
+		  {{c.customer_name}}
+		</option>
+	  </select>
+	  -->
+    <select placeholder="Customer" [(ngModel)]="customerproductc" name="customerid" class="form-control">
+	  <option disabled hidden [value]="selectUndefinedOptionValue">-- customer --</option>
+      <option *ngFor="let c of customers" [ngValue]="c.id">{{c.customer_name}}</option>
+    </select>
+    <!--{{customerproduct | json}}-->
+ </div>
+ 
+ <div class="col-md-2"></div>
+  <div class="col-md-2"> 
+	<!--<a class="btn btn-block btn-primary" href="#" (ngClick)="getCustomerPopUp()">New</a>-->
+	<button class="btn btn-lg btn-outline-primary" (click)="open(contentCustomer)">New</button>
+ </div>
+ 
+ <div class="col-md-2"></div>
+   <div class="col-md-2"> 
+	<a class="btn btn-lg btn-outline-danger" (click)="deleteCustomer(customerproductc)">X</a>
+ </div>
+</div>
+
+ <hr/>
+
+<div class="text-center">
+ <input type="button" class="btn btn-info btn-lg" (click)="exportdata(customerproductc,customerproductp)" value="Export Selection"/>
+</div>
+
+
+
+<ng-template #contentCustomer let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Customer</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #customerForm="ngForm">
+      <div class="form-group">
+		  <div class="row">
+			<div class="col-md-2"><label for="customerName">Name</label></div>
+			<div class="col-md-10">
+				<input type="hidden" (ngModel)="customer.id" name="id">
+				<div class="input-group">
+				  <!--<input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">-->
+				  <input class="form-control" id ="customerName" type="text" required (ngModel)="customer.customer_name" name="customer_name">
+				</div>
+			</div>
+		  </div>
+	  </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+  	<button type="button" class="btn btn-warning" (click)="modal.close('Cancel click');">Cancel</button>
+    <button type="button" class="btn btn-success" (click)="save(customerForm.value); modal.close('Save click');">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #contentProduct let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Product</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #productForm="ngForm">
+	
+      <div class="form-group">
+		  <div class="row">
+			<div class="col-md-2"><label for="productName">Name</label></div>
+			<div class="col-md-10">
+			  <div class="input-group">
+				<input type="hidden" (ngModel)="product.id" name="id">
+				 <input class="form-control" id ="productName" type="text" required (ngModel)="product.name_product" name="name_product">
+			  </div>
+			</div>
+		  </div>
+	  </div>
+	  
+	  <div class="form-group">
+	  	<div class="row">
+		 <div class="col-md-2"><label for="productCost">Cost</label></div>
+		 <div class="col-md-10">
+			<div class="input-group">
+			<input class="form-control" id ="productCost" type="number" (ngModel)="product.cost_product" name="cost_product">
+			</div>
+		 </div>
+		</div>
+	  </div>
+	  
+	  <div class="form-group">
+	   <div class="row">
+		<div class="col-md-2"><label for="productAmount">Amount</label></div>
+		<div class="col-md-10">
+			<div class="input-group">
+			 <input class="form-control" type="number" id ="productAmount" required (ngModel)="product.amount_product" name="amount_product">
+			</div>
+		</div>
+	   </div>
+	  </div>
+  
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="modal.close('Cancel click');">Cancel</button>
+    <button type="button" class="btn btn-success" (click)="save(productForm.value); modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<!--<button class="btn btn-lg btn-outline-primary" (click)="open(contentCustomer)">Launch demo modal</button>-->
+<!--
+<div class="row"> 
+ <div class="col-md-4"> 
+ </div>
+  <div class="col-md-4"> 
+    <div *ngIf="closeResult" class="alert alert-success">
+    {{closeResult}}
+  </div>
+  </div>
+  <div class="col-md-4"> 
+  </div>
+</div>
+-->
+
+	  

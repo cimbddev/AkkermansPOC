@@ -1,0 +1,29 @@
+
+<div class="page-header"><h3>Product Entry</h3></div>
+<hr/>
+
+<!--
+  <div *ngIf="resultMessage" class="alert alert-success">
+    {{resultMessage}}
+  </div>
+-->
+
+<form #productForm="ngForm" (ngSubmit)="save(productForm.value);productForm.reset();">
+  <div class="form-group">
+    <input type="hidden" (ngModel)="product.id" name="id">
+    <input class="form-control" id ="productName" type="text" placeholder="Product Name" required (ngModel)="product.name_product" name="name_product">
+  </div>
+  <div class="form-group">
+    <input class="form-control" id ="productCost" type="number" placeholder="Product Cost" (ngModel)="product.cost_product" name="cost_product">
+  </div>
+  <div class="form-group">
+	<input class="form-control" type="number" id ="productAmount" placeholder="Product Amount" required (ngModel)="product.amount_product" name="amount_product">
+  </div>
+  <div class="row">
+  <div class="col-md-10">
+  </div>
+  <div class="col-md-2">
+  <button class="btn btn-primary" type="submit" [disabled]="!productForm.form.valid">Save</button>
+  </div>
+  </div>
+</form>
